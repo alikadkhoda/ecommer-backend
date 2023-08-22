@@ -61,18 +61,19 @@ class AuthController extends Controller
             }
             else{
                 if ($user->role_as == 1)//1=Admin
-                 {
+                 {  $role='admin';
                     $token= $user->createToken($user->email.'_AdminToken',['server:admin'])->plainTextToken;
                 }
                 else{
-
+                    $role='';
                     $token= $user->createToken($user->email.'_Token',[''])->plainTextToken;
                 }
                 return response()->json([
                     'status'=>200,
                     'username'=>$user->name,
                     'message'=>'ورود شما با موفقیت انجام شد',
-                    'token'=>$token
+                    'token'=>$token,
+                    'role'=>$role
                 ]);
             }
         }
