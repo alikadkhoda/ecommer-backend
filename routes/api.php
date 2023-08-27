@@ -1,13 +1,25 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\CartController;
 use App\Http\Controllers\API\CategoryController;
+use App\Http\Controllers\API\FrontendController;
 use App\Http\Controllers\API\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/register', [AuthController::class , 'register']);
 Route::post('/login', [AuthController::class , 'login']);
+
+Route::get('getCategory',[FrontendController::class, 'category']);
+Route::get('fetchProducts/{slug}',[FrontendController::class, 'product']);
+Route::get('viewProductDetail/{category_slug}/{product_slug}',[FrontendController::class, 'viewProduct']);
+
+Route::post('add-to-cart',[CartController::class, 'addToCart']);
+Route::get('cart',[CartController::class, 'viewCart']);
+Route::put('cart-updateQuantity/{cart_id}/{scope}',[CartController::class, 'updateQuantity']);
+Route::delete('delete-cartItem/{cart_id}',[CartController::class, 'deleteCart']);
+
 
 Route::middleware(['auth:sanctum','isAPIAdmin'])->group(function (){
     Route::get('checkingAuthenticated', function (){
