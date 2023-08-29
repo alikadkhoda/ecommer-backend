@@ -3,7 +3,9 @@
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\CartController;
 use App\Http\Controllers\API\CategoryController;
+use App\Http\Controllers\API\CheckoutController;
 use App\Http\Controllers\API\FrontendController;
+use App\Http\Controllers\API\OrderController;
 use App\Http\Controllers\API\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,6 +22,7 @@ Route::get('cart',[CartController::class, 'viewCart']);
 Route::put('cart-updateQuantity/{cart_id}/{scope}',[CartController::class, 'updateQuantity']);
 Route::delete('delete-cartItem/{cart_id}',[CartController::class, 'deleteCart']);
 
+Route::post('place-order',[CheckoutController::class, 'placeorder']);
 
 Route::middleware(['auth:sanctum','isAPIAdmin'])->group(function (){
     Route::get('checkingAuthenticated', function (){
@@ -35,6 +38,9 @@ Route::middleware(['auth:sanctum','isAPIAdmin'])->group(function (){
     Route::put('/update-category/{id}',[CategoryController::class, 'update']);
     Route::delete('/delete-category/{id}',[CategoryController::class, 'destroy']);
     Route::get('/all-category',[CategoryController::class, 'allCategory']);
+
+    //orders
+    Route::get('admin/orders',[OrderController::class,'index']);
 
     //product
     Route::post('/store-product',[ProductController::class, 'store']);
