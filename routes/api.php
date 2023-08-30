@@ -7,6 +7,7 @@ use App\Http\Controllers\API\CheckoutController;
 use App\Http\Controllers\API\FrontendController;
 use App\Http\Controllers\API\OrderController;
 use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\API\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,9 +27,11 @@ Route::post('place-order',[CheckoutController::class, 'placeorder']);
 
 Route::middleware(['auth:sanctum','isAPIAdmin'])->group(function (){
     Route::get('checkingAuthenticated', function (){
+       $user= auth()->user()->name;
         return response()->json([
             'message'=>'شما وارد شدید',
-            'status'=>200
+            'status'=>200,
+            'user'=>$user
         ],200);
     });
     //category
@@ -47,6 +50,9 @@ Route::middleware(['auth:sanctum','isAPIAdmin'])->group(function (){
     Route::get('/view-product',[ProductController::class, 'index']);
     Route::get('/edit-product/{id}',[ProductController::class, 'edit']);
     Route::post('/update-product/{id}',[ProductController::class, 'update']);
+
+    //users
+    Route::get('/view-users',[UserController::class , 'index']);
 });
 Route::middleware(['auth:sanctum'])->group(function (){
     
