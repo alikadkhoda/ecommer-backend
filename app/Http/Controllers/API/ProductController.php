@@ -155,4 +155,24 @@ class ProductController extends Controller
         }
         }
     }
+    public function destroy($id){
+        $product=Product::find($id);
+        if($product){
+            $path=$product->image;
+            if(File::exists($path)){
+                File::delete($path);
+            }
+            $product->delete();
+            return response()->json([
+                'status'=>200,
+                'message'=>'محصول مورد نظر حذف شد'
+            ]);
+        }
+        else{
+            return response()->json([
+                'status'=>404,
+                'message'=>' محصولی باآیدی مورد نظر یافت نشد'
+            ]);
+        }
+    }
 }

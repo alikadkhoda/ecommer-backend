@@ -38,21 +38,26 @@ Route::middleware(['auth:sanctum','isAPIAdmin'])->group(function (){
     Route::post('/store-category',[CategoryController::class, 'store']);
     Route::get('/view-category',[CategoryController::class, 'index']);
     Route::get('/edit-category/{id}',[CategoryController::class, 'edit']);
-    Route::put('/update-category/{id}',[CategoryController::class, 'update']);
+    Route::post('/update-category/{id}',[CategoryController::class, 'update']);
     Route::delete('/delete-category/{id}',[CategoryController::class, 'destroy']);
     Route::get('/all-category',[CategoryController::class, 'allCategory']);
 
     //orders
     Route::get('admin/orders',[OrderController::class,'index']);
+    Route::get('admin/view-order/{order_id}',[OrderController::class,'detail']);
 
     //product
     Route::post('/store-product',[ProductController::class, 'store']);
     Route::get('/view-product',[ProductController::class, 'index']);
     Route::get('/edit-product/{id}',[ProductController::class, 'edit']);
     Route::post('/update-product/{id}',[ProductController::class, 'update']);
+    Route::delete('/delete-product/{id}',[ProductController::class, 'destroy']);
 
     //users
     Route::get('/view-users',[UserController::class , 'index']);
+    Route::get('/edit-user/{id}',[UserController::class , 'edit']);
+    Route::post('/update-user/{id}',[UserController::class , 'update']);
+    Route::delete('/delete-user/{id}',[UserController::class , 'destroy']);
 });
 Route::middleware(['auth:sanctum'])->group(function (){
     
