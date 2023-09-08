@@ -67,7 +67,7 @@ class CartController extends Controller
         else{
             return response()->json([
                 'status'=>401,
-                'message'=>' لطفا وارد شوید برای مشاهده کارت'
+                'message'=>' لطفا برای مشاهده سبد خرید وارد شوید'
             ]);
         }
     }

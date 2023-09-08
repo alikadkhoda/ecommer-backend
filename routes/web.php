@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Orderitems;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +17,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $data=Orderitems::join('products', 'product_id', '=', 'products.id')
+                        ->join('categories', 'category_id', '=', 'categories.id')
+                        ->select('categories.name', DB::raw('SUM(Orderitems.price) as total_price'))
+                        ->groupBy('categories.name')->get();
+                        dd($data);
+    // return view('welcome');
 });
 
 Auth::routes();

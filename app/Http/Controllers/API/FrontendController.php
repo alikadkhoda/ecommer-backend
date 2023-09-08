@@ -16,6 +16,21 @@ class FrontendController extends Controller
             'category'=>$category
         ]);
     }
+    public function carousel(){
+        $carousel=Product::offset(0)->limit(3)->get();
+        return response()->json([
+            'status'=>200,
+            'carousel'=>$carousel
+        ]);
+    }
+    public function newsProduct(){
+        $start=Product::count()-3;
+        $newsProduct=Product::offset($start)->limit(3)->get();
+        return response()->json([
+            'status'=>200,
+            'newsProduct'=>$newsProduct
+        ]);
+    }
     public function product($slug){
         $category=Category::where('slug',$slug)->where('status','0')->first();
         if($category){

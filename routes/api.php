@@ -7,7 +7,9 @@ use App\Http\Controllers\API\CheckoutController;
 use App\Http\Controllers\API\FrontendController;
 use App\Http\Controllers\API\OrderController;
 use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\API\ProfileController;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +17,8 @@ Route::post('/register', [AuthController::class , 'register']);
 Route::post('/login', [AuthController::class , 'login']);
 
 Route::get('getCategory',[FrontendController::class, 'category']);
+Route::get('getCarousel',[FrontendController::class, 'carousel']);
+Route::get('news-product',[FrontendController::class, 'newsProduct']);
 Route::get('fetchProducts/{slug}',[FrontendController::class, 'product']);
 Route::get('viewProductDetail/{category_slug}/{product_slug}',[FrontendController::class, 'viewProduct']);
 
@@ -24,6 +28,11 @@ Route::put('cart-updateQuantity/{cart_id}/{scope}',[CartController::class, 'upda
 Route::delete('delete-cartItem/{cart_id}',[CartController::class, 'deleteCart']);
 
 Route::post('place-order',[CheckoutController::class, 'placeorder']);
+
+//profile
+Route::get('profile',[ProfileController::class , 'index']);
+Route::get('edit-profile',[ProfileController::class , 'edit']);
+Route::post('update-profile',[ProfileController::class , 'update']);
 
 Route::middleware(['auth:sanctum','isAPIAdmin'])->group(function (){
     Route::get('checkingAuthenticated', function (){
@@ -58,6 +67,9 @@ Route::middleware(['auth:sanctum','isAPIAdmin'])->group(function (){
     Route::get('/edit-user/{id}',[UserController::class , 'edit']);
     Route::post('/update-user/{id}',[UserController::class , 'update']);
     Route::delete('/delete-user/{id}',[UserController::class , 'destroy']);
+
+    //dashboard
+    Route::get('sale-category',[DashboardController::class, 'sale_category']);
 });
 Route::middleware(['auth:sanctum'])->group(function (){
     
